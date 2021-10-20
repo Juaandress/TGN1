@@ -28,6 +28,7 @@ public class Cine {
                 edad = sc.nextInt();
             } catch (Exception e){
                 System.out.println("el valor ingresado debe ser un numero");
+                return;
             }
             int silla =0;
             System.out.println("ingrese la silla del espectador \n");
@@ -35,6 +36,7 @@ public class Cine {
                 silla = sc.nextInt();
             } catch (Exception e){
                 System.out.println("el valor ingresado debe ser un numero");
+                return;
             }
             System.out.println("ingrese la fila del espectador \n");
             String fila = sc.next();
