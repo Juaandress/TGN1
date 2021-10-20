@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Cine {
@@ -15,80 +17,41 @@ public class Cine {
         // En caso de que el usuario ingrese letras en lugar de números donde no corresponda el
         // programa debe finalizar con el error: "ERROR EN EL INGRESO DE DATOS".
         Scanner sc = new Scanner(System.in);
-        int x=0;
-        int cont=1;
-        Espectador espectador1 = new Espectador("",0,"",0);
-        Espectador espectador2 = new Espectador("",0,"",0);
-        Espectador espectador3 = new Espectador("",0,"",0);
-        String nombre="";
-        String fila="";
-        int edad=0,silla=0;
-
-
-
-        while (x==0){
-            System.out.println("Ingrese el nombre del espectador");
-            nombre = sc.next();
-
-            System.out.println("Ingrese la edad");
+        boolean continuar = true;
+        LinkedList<Espectador> listadeEspectadores = new LinkedList<>();
+        while(continuar){
+            System.out.println("ingrese nombre del espectador \n");
+            String nombre = sc.next();
+            int edad = 0;
+            System.out.println("ingrese la edad del espectador \n");
             try {
-                edad = sc.nextByte();
-            }catch (Exception e){
-                System.out.println("ERROR EN EL INGRESO DE DATOS");
-                cont--;
+                edad = sc.nextInt();
+            } catch (Exception e){
+                System.out.println("el valor ingresado debe ser un numero");
             }
-
-            System.out.println("Ingrese la Fila");
-            fila = sc.next();
-
-            System.out.println("Ingrese la Silla");
+            int silla =0;
+            System.out.println("ingrese la silla del espectador \n");
             try {
-                silla = sc.nextByte();
-            }catch (Exception e){
-                System.out.println("ERROR EN EL INGRESO DE DATOS");
-                cont--;
+                silla = sc.nextInt();
+            } catch (Exception e){
+                System.out.println("el valor ingresado debe ser un numero");
             }
-
-            if (cont==1){
-                espectador1.setFila(fila);
-                espectador1.setNombre(nombre);
-                espectador1.setSilla(silla);
-                espectador1.setEdad(edad);
-            }else{
-                if (cont==2){
-                    espectador2.setFila(fila);
-                    espectador2.setNombre(nombre);
-                    espectador2.setSilla(silla);
-                    espectador2.setEdad(edad);
-                }else {
-                    espectador3.setFila(fila);
-                    espectador3.setNombre(nombre);
-                    espectador3.setSilla(silla);
-                    espectador3.setEdad(edad);
-                }
+            System.out.println("ingrese la fila del espectador \n");
+            String fila = sc.next();
+            Espectador nuevoEspectador = new Espectador(nombre, edad, fila, silla);
+            listadeEspectadores.add(nuevoEspectador);
+            System.out.println("¿Desea agregar mas espectadores? S/N");
+            String respuesta = sc.next();
+            if (!respuesta.toLowerCase().equals("s")){
+                continuar = false;
             }
-
-            cont++;
-
-
-            System.out.println("desea agregar un nuevo espectador ingrese (0) de lo contrario culauier otro valor");
-
-            int opcion = sc.nextInt();
-            if (opcion==0){
-                x++;
-            }else{
-                System.out.println("ADVERTENCIA si el numero de espectadores es mayor a 3 se reemplazara el ultimo espectador cargado");
-            }
-
-
         }
+
         // Por medio del código crear una sala con capacidad para 3 personas
         // llamada “Sala 01” en donde se proyecte la película “Jocker”.
         Sala sala01 = new Sala(3, "Sala 01");
         sala01.setPelicula("Joker");
-        sala01.agregarEspectador(espectador1);
-        sala01.agregarEspectador(espectador2);
-        sala01.agregarEspectador(espectador3);
+        sala01.setEspectadores(listadeEspectadores);
         //Imprimir la lista de espectadores que se encuentran asignado a la sala.
         System.out.println("los espectadores que se encuentran en la sala son: ");
         sala01.listarEspectadores();
